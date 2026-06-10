@@ -31,14 +31,15 @@ ProductRepository  productRepository;
 
     public ProductEntity updateProductById(Long id, ProductEntity productEntity) {
       ProductEntity product =  productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+product.setName(productEntity.getName());
 
-      product.setProductName(productEntity.getProductName());
       product.setPrice(productEntity.getPrice());
-      product.setCategoryId(productEntity.getCategoryId());
+      product.setCategoryEntity(productEntity.getCategoryEntity());
+
       product.setDescription(productEntity.getDescription());
       product.setImageUrl(productEntity.getImageUrl());
-      product.setStockQuantity(productEntity.getStockQuantity());
-      product.setSupplierId(productEntity.getSupplierId());
+      product.setStockQty(productEntity.getStockQty());
+      product.setSupplier(productEntity.getSupplier());
       return productRepository.save(product);
     }
 }

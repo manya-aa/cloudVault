@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -13,11 +15,12 @@ import lombok.NoArgsConstructor;
 public class SupplierEntity {
 @Id
         @GeneratedValue(strategy= GenerationType.IDENTITY)
-    Long id;
-    String name;
-    String email;
-    String phone;
-    String address;
+   private Long id;
+    private String name;
+    private String email;
+    private String phone;
+    private String address;
 
-
+@OneToMany(mappedBy = "supplier")
+    private List<ProductEntity> products;
 }

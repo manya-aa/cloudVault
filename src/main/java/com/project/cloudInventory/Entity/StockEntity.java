@@ -1,10 +1,7 @@
 package com.project.cloudInventory.Entity;
 
 import com.project.cloudInventory.Enum.Movement;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,10 +16,16 @@ public class StockEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    Long product_id;
-    int quantity_change;
-    Movement movement_type ;
-    LocalDateTime timestamp;
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name="product_id")
+    private ProductEntity product;
+
+           @Column(name="qty_change")
+    private int quantityChange;
+    @Enumerated(EnumType.STRING)
+    @Column(name="movement")
+    private Movement movementType;
+   private LocalDateTime timestamp;
 
 }

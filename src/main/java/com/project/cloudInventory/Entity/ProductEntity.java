@@ -1,12 +1,11 @@
 package com.project.cloudInventory.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -15,13 +14,26 @@ import lombok.NoArgsConstructor;
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long Id;
-    String productName;
-String description;
-Double price;
-Long categoryId;
-int stockQuantity;
-Long supplierId;
-String imageUrl;
+   private Long id;
+   private String name;
+private String description;
+private Double price;
+
+@ManyToOne
+@JoinColumn(name="category_id")
+private CategoryEntity categoryEntity;
+
+    @OneToMany(mappedBy = "product")
+    private List<StockEntity> stockMovements;
+
+
+@ManyToOne
+@JoinColumn(name="supplier_id")
+private SupplierEntity supplier;
+@Column(name="image_url")
+private String imageUrl;
+@Column(name="stock_qty")
+    private Integer stockQty;
+
 
 }

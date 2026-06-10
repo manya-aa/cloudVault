@@ -33,10 +33,9 @@ public class CategoryService {
     public CategoryEntity updateCategoryById(Long id, CategoryEntity categoryEntity) {
 CategoryEntity category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
 
-category.setName(categoryEntity.getName());
+category.setCategoryName(categoryEntity.getCategoryName());
 category.setId(categoryEntity.getId());
-category.setParent_category_id(categoryEntity.getParent_category_id());
-
+category.setParentCategory(categoryEntity.getParentCategory());
         return categoryRepository.save(category);
     }
 }

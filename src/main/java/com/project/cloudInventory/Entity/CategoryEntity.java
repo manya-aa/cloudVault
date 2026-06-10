@@ -1,11 +1,11 @@
 package com.project.cloudInventory.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -14,10 +14,18 @@ import lombok.NoArgsConstructor;
 public class CategoryEntity {
 
     @Id
-    @GeneratedValue
-    Long id;
-    String  name;
-    String parent_category_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+@Column(name="name")
+    private String categoryName;
 
+    @ManyToOne
+    @JoinColumn(name = "parent_category_id")
+    private CategoryEntity parentCategory;
 
+    @OneToMany(mappedBy = "parentCategory")
+    private List<CategoryEntity> subCategories;
+
+    @OneToMany(mappedBy = "categoryEntity")
+    private List<ProductEntity> products;
 }
