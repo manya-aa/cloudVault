@@ -11,20 +11,16 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "category")
 public class CategoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-@Column(name="name")
+@Column(name="name",nullable = false,unique = true)
     private String categoryName;
 
-    @ManyToOne
-    @JoinColumn(name = "parent_category_id")
-    private CategoryEntity parentCategory;
-
-    @OneToMany(mappedBy = "parentCategory")
-    private List<CategoryEntity> subCategories;
+private String description;
 
     @OneToMany(mappedBy = "categoryEntity")
     private List<ProductEntity> products;

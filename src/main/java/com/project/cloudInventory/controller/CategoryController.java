@@ -1,49 +1,71 @@
 package com.project.cloudInventory.controller;
 
-import com.project.cloudInventory.Entity.CategoryEntity;
-import com.project.cloudInventory.Entity.ProductEntity;
+import com.project.cloudInventory.dto.CategoryDTO;
+import com.project.cloudInventory.response.ApiResponse;
 import com.project.cloudInventory.service.CategoryService;
-import com.project.cloudInventory.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("api/categories")
+@RestController
+@RequestMapping("api/categories")
 public class CategoryController {
 
     private final CategoryService categoryService;
-    @Autowired
-    public CategoryController(CategoryService categoryService){
-        this.categoryService=categoryService;
+
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
     @GetMapping
-    ResponseEntity<List<CategoryEntity>> getAllCategories(){
-        List<CategoryEntity> list = categoryService.getAllCategories();
-        return ResponseEntity.ok(list);
+    public ResponseEntity<ApiResponse> getAllCategories(
+            @RequestParam int page,
+            @RequestParam int size) {
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(true, "All Categories",
+                        categoryService.getAllCategories(page, size))
+        );
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<CategoryEntity> getCategoryById(@PathVariable Long id){
-        return ResponseEntity.ok(categoryService.getCategoryById(id));
+    public ResponseEntity<ApiResponse<CategoryDTO>> getCategoryById(@PathVariable Long id) {
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(true, "Category found",
+                        categoryService.getCategoryById(id))
+        );
     }
 
     @PostMapping
-    ResponseEntity<CategoryEntity> saveCategory(@RequestBody CategoryEntity categoryEntity){
-        return ResponseEntity.ok(categoryService.saveCategory(categoryEntity));
-    }
+    public ResponseEntity<ApiResponse<CategoryDTO>> saveCategory(
+            @RequestBody CategoryDTO categoryDTO) {
 
-    @DeleteMapping("/{id}")
-    ResponseEntity<Void> deleteCategoryById(@PathVariable Long id){
-        categoryService.deleteCategoryById(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new ApiResponse<>(true, "Category added successfully",
+                        categoryService.saveCategory(categoryDTO)));
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<CategoryEntity> updateCategoryById(@PathVariable Long id, @RequestBody CategoryEntity categoryEntity){
-        return ResponseEntity.ok(categoryService.updateCategoryById(id,categoryEntity));
+    public ResponseEntity<ApiResponse<CategoryDTO>> updateCategoryById(
+            @PathVariable Long id,
+            @RequestBody CategoryDTO categoryDTO) {
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(true, "Category updated successfully",
+                        categoryService.updateCategoryById(id, categoryDTO))
+        );
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteCategoryById(@PathVariable Long id) {
+
+        categoryService.deleteCategoryById(id);
+
+        return ResponseEntity.ok(
+                new ApiResponse<>(true, "Category Deleted", null)
+        );
+    }
 }

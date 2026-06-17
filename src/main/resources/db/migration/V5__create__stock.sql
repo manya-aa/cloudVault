@@ -1,7 +1,7 @@
 CREATE TABLE STOCK(
 
-    id SERIAL PRIMARY KEY ,
-                  product_id INTEGER REFERENCES product(id),
+    id BIGSERIAL PRIMARY KEY ,
+                  product_id BIGINT REFERENCES product(id),
                   qty_change INTEGER,
 
                 movement VARCHAR(10),

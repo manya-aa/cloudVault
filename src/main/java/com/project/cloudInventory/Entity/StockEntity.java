@@ -12,19 +12,20 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "stock")
 public class StockEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name="product_id")
+    @JoinColumn(name="product_id",nullable = false)
     private ProductEntity product;
 
-           @Column(name="qty_change")
+           @Column(name="qty_change",nullable = false)
     private int quantityChange;
     @Enumerated(EnumType.STRING)
-    @Column(name="movement")
+    @Column(name="movement",nullable = false)
     private Movement movementType;
    private LocalDateTime timestamp;
 

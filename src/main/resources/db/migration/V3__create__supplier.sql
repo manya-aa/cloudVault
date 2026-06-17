@@ -1,8 +1,8 @@
 CREATE TABLE SUPPLIER(
 
-    id SERIAL PRIMARY KEY ,
+    id BIGSERIAL PRIMARY KEY ,
     name VARCHAR(50),
-    email VARCHAR(50),
+    email VARCHAR(50) UNIQUE ,
     phone VARCHAR(20),
     address VARCHAR(100)
 

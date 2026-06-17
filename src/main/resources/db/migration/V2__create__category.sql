@@ -1,9 +1,9 @@
 CREATE TABLE CATEGORY(
 
 
-                         id SERIAL PRIMARY KEY,
-                         name VARCHAR(50),
-                         parent_category_id INTEGER REFERENCES category(id)
+                         id BIGSERIAL PRIMARY KEY,
+                         name VARCHAR(50) NOT NULL UNIQUE ,
+                         description VARCHAR(100)
 
 
 );

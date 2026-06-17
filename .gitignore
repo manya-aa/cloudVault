@@ -31,3 +31,36 @@ build/
 
 ### VS Code ###
 .vscode/
+# =========================
+# ENV / SECRETS (IMPORTANT)
+# =========================
+.env
+*.env
+
+application-local.properties
+application-local.yml
+application-secret.properties
+application-secret.yml
+
+# =========================
+# LOGS
+# =========================
+*.log
+logs/
+
+# =========================
+# SPRING BOOT TEMP FILES
+# =========================
+*.pid
+*.tmp
+
+# =========================
+# DOCKER LOCAL OVERRIDES
+# =========================
+docker-compose.override.yml
+
+# =========================
+# OS FILES
+# =========================
+.DS_Store
+Thumbs.db
